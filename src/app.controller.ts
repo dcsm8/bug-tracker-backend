@@ -8,18 +8,21 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { createReadStream } from 'fs';
 import path from 'path';
 
 import { AppService } from './app.service';
+import { AuthService } from './auth/auth.service';
 import { LocalAuthGuard } from './auth/guards/local-auth.guard';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private authService: AuthService,
+  ) {}
 
   @Post('upload')
   @UseInterceptors(FilesInterceptor('files', 20))
@@ -43,6 +46,6 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Request() req) {
-    return req.user;
+    return this.authService.login(req.user);
   }
 }
