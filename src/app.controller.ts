@@ -5,13 +5,17 @@ import {
   UseInterceptors,
   Response,
   StreamableFile,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { createReadStream } from 'fs';
 import path from 'path';
 
 import { AppService } from './app.service';
+import { LocalAuthGuard } from './auth/guards/local-auth.guard';
 
 @Controller()
 export class AppController {
@@ -34,5 +38,11 @@ export class AppController {
     });
 
     return new StreamableFile(file);
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Post('auth/login')
+  async login(@Request() req) {
+    return req.user;
   }
 }
