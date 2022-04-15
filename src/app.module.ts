@@ -1,4 +1,3 @@
-import { ZipService } from '@app/zip';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -8,6 +7,6 @@ import { UsersModule } from './users/users.module';
 @Module({
   imports: [AuthModule, UsersModule],
   controllers: [AppController],
-  providers: [AppService, ZipService],
+  providers: [AppService],
 })
 export class AppModule {}

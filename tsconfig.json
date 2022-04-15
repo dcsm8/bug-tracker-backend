@@ -18,13 +18,6 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
-    "paths": {
-      "@app/zip": [
-        "libs/zip/src"
-      ],
-      "@app/zip/*": [
-        "libs/zip/src/*"
-      ]
-    }
+    "paths": {}
   }
 }
