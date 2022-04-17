@@ -19,4 +19,9 @@ export class AppController {
   getProfile(@Request() req) {
     return req.user;
   }
+
+  @Get('test')
+  getTest(@Request() req) {
+    return 'test';
+  }
 }
