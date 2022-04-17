@@ -15,10 +15,7 @@ const config: Options = {
   debug: true,
   logger: logger.log.bind(logger),
   driverOptions: {
-    connection: {
-      ssl: process.env.NODE_ENV === 'production',
-      rejectUnauthorized: false,
-    },
+    connection: { ssl: { rejectUnauthorized: false } },
   },
 };
 
