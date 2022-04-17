@@ -1,5 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { Options } from '@mikro-orm/core';
+import { AnimationFrameScheduler } from 'rxjs/internal/scheduler/AnimationFrameScheduler';
 
 const logger = new Logger('MikroORM');
 const config: Options = {
@@ -13,6 +14,9 @@ const config: Options = {
   clientUrl: process.env.DATABASE_URL,
   debug: true,
   logger: logger.log.bind(logger),
+  driverOptions: {
+    connection: { ssl: process.env.NODE_ENV === 'production' },
+  },
 };
 
 export default config;
