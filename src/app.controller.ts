@@ -20,7 +20,7 @@ export class AppController {
     return req.user;
   }
 
-  @Get('test')
+  @Get('testing')
   getTest(@Request() req) {
     return 'test';
   }
