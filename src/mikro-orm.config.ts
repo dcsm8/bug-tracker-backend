@@ -15,7 +15,9 @@ const config: Options = {
   debug: true,
   logger: logger.log.bind(logger),
   driverOptions: {
-    connection: { ssl: { rejectUnauthorized: false } },
+    ...(process.env.NODE_ENV === 'production' && {
+      connection: { ssl: { rejectUnauthorized: false } },
+    }),
   },
 };
 
