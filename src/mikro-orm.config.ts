@@ -10,11 +10,7 @@ const config: Options = {
     pathTs: 'src/migrations',
   },
   type: 'postgresql',
-  host: process.env.DATANASE_HOST,
-  dbName: process.env.DATABASE_NAME,
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  port: 5432,
+  clientUrl: process.env.DATABASE_URL,
   debug: true,
   logger: logger.log.bind(logger),
 };
