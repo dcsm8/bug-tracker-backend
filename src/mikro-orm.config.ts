@@ -1,6 +1,5 @@
 import { Logger } from '@nestjs/common';
 import { Options } from '@mikro-orm/core';
-import { AnimationFrameScheduler } from 'rxjs/internal/scheduler/AnimationFrameScheduler';
 
 const logger = new Logger('MikroORM');
 const config: Options = {
