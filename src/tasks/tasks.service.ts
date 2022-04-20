@@ -18,7 +18,7 @@ export class TasksService {
   }
 
   findAll() {
-    return `This action returns all tasks`;
+    return this.taskRepository.findAll();
   }
 
   findOne(id: number) {
