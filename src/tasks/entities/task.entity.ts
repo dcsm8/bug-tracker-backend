@@ -19,22 +19,22 @@ export class Task {
   id: number;
 
   @Property()
-  title!: string;
+  title: string;
 
   @Enum(() => PriorityType)
-  priority: PriorityType.LOW;
+  priority: PriorityType;
 
   @Enum(() => StatusType)
-  status: StatusType.UNASSIGNED;
+  status: StatusType;
 
   @Enum(() => NotificationStatusType)
-  notificationStatus: NotificationStatusType.NOT_NOTIFIED;
+  notificationStatus: NotificationStatusType;
 
   @Enum(() => CategoryType)
-  category: CategoryType.ISSUE;
+  category: CategoryType;
 
   @Property()
-  shortDescription!: string;
+  shortDescription: string;
 
   @Property()
   longDescription?: string;
