@@ -1,5 +1,6 @@
+import { wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
@@ -11,9 +12,9 @@ export class TasksService {
     @InjectRepository(Task) private readonly taskRepository: TaskRepository,
   ) {}
 
-  create(createTaskDto: CreateTaskDto) {
+  async create(createTaskDto: CreateTaskDto): Promise<Task> {
     const entity = this.taskRepository.create(createTaskDto);
-    this.taskRepository.persistAndFlush(entity);
+    await this.taskRepository.persistAndFlush(entity);
     return entity;
   }
 
@@ -25,8 +26,15 @@ export class TasksService {
     return `This action returns a #${id} task`;
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  async update(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
+    try {
+      const task = await this.taskRepository.findOneOrFail(id);
+      wrap(task).assign(updateTaskDto);
+      await this.taskRepository.flush();
+      return task;
+    } catch (error) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
   }
 
   remove(id: number) {
