@@ -1,5 +1,5 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -24,7 +24,11 @@ export class UsersService {
   }
 
   async findByEmail(email: string): Promise<any> {
-    return this.userRepository.findOne({ email });
+    try {
+      return await this.userRepository.findOneOrFail({ email });
+    } catch (error) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
