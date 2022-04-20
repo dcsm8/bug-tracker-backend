@@ -23,7 +23,7 @@ export class UsersService {
     return this.userRepository.findOne(id);
   }
 
-  async findByEmail(email: string): Promise<any> {
+  async findByEmail(email: string): Promise<User> {
     try {
       return await this.userRepository.findOneOrFail({ email });
     } catch (error) {
