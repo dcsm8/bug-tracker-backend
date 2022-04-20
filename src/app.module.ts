@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { ConfigModule } from '@nestjs/config';
     UsersModule,
     MikroOrmModule.forRoot(),
     ConfigModule.forRoot(),
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [],
