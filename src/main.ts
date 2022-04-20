@@ -1,11 +1,13 @@
-import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  const reflector = app.get(Reflector);
 
   app.setGlobalPrefix('api');
   app.useGlobalPipes(
@@ -15,6 +17,8 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
 
   const config = new DocumentBuilder()
     .setTitle('Bug Tracker')
