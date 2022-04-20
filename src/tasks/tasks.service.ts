@@ -1,11 +1,20 @@
+import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { Task } from './entities/task.entity';
+import { TaskRepository } from './tasks.repository';
 
 @Injectable()
 export class TasksService {
+  constructor(
+    @InjectRepository(Task) private readonly taskRepository: TaskRepository,
+  ) {}
+
   create(createTaskDto: CreateTaskDto) {
-    return 'This action adds a new task';
+    const entity = this.taskRepository.create(createTaskDto);
+    this.taskRepository.persistAndFlush(entity);
+    return entity;
   }
 
   findAll() {

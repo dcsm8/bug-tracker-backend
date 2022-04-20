@@ -9,11 +9,11 @@ import { CategoryType } from '../enums/category-type.enum';
 import { NotificationStatusType } from '../enums/notification-status-type.enum';
 import { PriorityType } from '../enums/priority-type.enum';
 import { StatusType } from '../enums/status-type.enum';
-import { TasksRepository } from '../tasks.repository';
+import { TaskRepository } from '../tasks.repository';
 
 @Entity()
 export class Task {
-  [EntityRepositoryType]?: TasksRepository;
+  [EntityRepositoryType]?: TaskRepository;
 
   @PrimaryKey()
   id: number;
