@@ -4,6 +4,7 @@ import {
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
+import { Exclude } from 'class-transformer';
 import { UserRepository } from '../users.repository';
 
 @Entity()
@@ -19,6 +20,7 @@ export class User {
   @Property()
   email: string;
 
+  @Exclude()
   @Property()
   password: string;
 
