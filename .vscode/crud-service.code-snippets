@@ -1,0 +1,57 @@
+{
+  // Place your bug-tracker-backend workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+  "Crud Service": {
+    "prefix": "crud-service",
+    "body": [
+      "import { wrap } from '@mikro-orm/core';",
+      "import { InjectRepository } from '@mikro-orm/nestjs';",
+      "import { Injectable } from '@nestjs/common';",
+      "import { Create${1:Entity}Dto } from './dto/create-task.dto';",
+      "import { Update${1:Entity}Dto } from './dto/update-task.dto';",
+      "import { ${1:Entity} } from './entities/task.entity';",
+      "import { ${1:Entity}Repository } from './tasks.repository';",
+      "",
+      "@Injectable()",
+      "export class ${1:Entity}Service {",
+      "  constructor(",
+      "    @InjectRepository(${1:Entity}) private readonly taskRepository: ${1:Entity}Repository,",
+      "  ) {}",
+      "",
+      "  async create(create${1:Entity}Dto: Create${1:Entity}Dto): Promise<${1:Entity}> {",
+      "    const entity = this.taskRepository.create(create${1:Entity}Dto);",
+      "    await this.taskRepository.persistAndFlush(entity);",
+      "    return entity;",
+      "  }",
+      "",
+      "  async findAll(): Promise<${1:Entity}[]> {",
+      "    return this.taskRepository.findAll();",
+      "  }",
+      "",
+      "  async findOne(id: number): Promise<${1:Entity}> {",
+      "    return this.taskRepository.findOneOrFail(id);",
+      "  }",
+      "",
+      "  async update(id: number, update${1:Entity}Dto: Update${1:Entity}Dto): Promise<${1:Entity}> {",
+      "    const task = await this.taskRepository.findOneOrFail(id);",
+      "    wrap(task).assign(update${1:Entity}Dto);",
+      "    await this.taskRepository.flush();",
+      "    return task;",
+      "  }",
+      "",
+      "  async remove(id: number): Promise<${1:Entity}> {",
+      "    const task = await this.taskRepository.findOneOrFail(id);",
+      "    await this.taskRepository.removeAndFlush(task);",
+      "    return task;",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "Crud Service"
+  }
+}
