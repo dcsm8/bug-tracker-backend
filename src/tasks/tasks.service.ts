@@ -43,7 +43,9 @@ export class TasksService {
   }
 
   async findAll(): Promise<Task[]> {
-    return this.taskRepository.findAll();
+    return this.taskRepository.findAll({
+      populate: ['createdBy', 'assignedTo'],
+    });
   }
 
   async findOne(id: number): Promise<Task> {
