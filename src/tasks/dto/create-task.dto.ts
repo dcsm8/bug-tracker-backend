@@ -32,4 +32,7 @@ export class CreateTaskDto {
 
   @IsNotEmpty()
   readonly release?: string;
+
+  @IsNotEmpty()
+  assignedToId: number;
 }

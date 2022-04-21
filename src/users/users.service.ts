@@ -24,11 +24,7 @@ export class UsersService {
   }
 
   async findByEmail(email: string): Promise<User> {
-    try {
-      return await this.userRepository.findOneOrFail({ email });
-    } catch (error) {
-      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
-    }
+    return this.userRepository.findOneOrFail({ email });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

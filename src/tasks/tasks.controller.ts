@@ -17,6 +17,8 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { AuthData } from '../common/decorator/user.decorator';
+import { AuthTokenDto } from '../auth/dto/auth-token.dto';
 
 @ApiTags('tasks')
 @ApiUnauthorizedResponse({ description: 'Unauthorized' })
@@ -27,8 +29,8 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Post()
-  create(@Body() createTaskDto: CreateTaskDto) {
-    return this.tasksService.create(createTaskDto);
+  create(@Body() createTaskDto: CreateTaskDto, @AuthData() user: AuthTokenDto) {
+    return this.tasksService.create(createTaskDto, user);
   }
 
   @Get()

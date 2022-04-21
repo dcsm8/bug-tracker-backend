@@ -1,6 +1,9 @@
 import { wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
+import { AuthTokenDto } from '../auth/dto/auth-token.dto';
+import { User } from '../users/entities/user.entity';
+import { UserRepository } from '../users/users.repository';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
@@ -10,10 +13,31 @@ import { TaskRepository } from './tasks.repository';
 export class TasksService {
   constructor(
     @InjectRepository(Task) private readonly taskRepository: TaskRepository,
+    @InjectRepository(User) private readonly userRepository: UserRepository,
   ) {}
 
-  async create(createTaskDto: CreateTaskDto): Promise<Task> {
-    const entity = this.taskRepository.create(createTaskDto);
+  async create(
+    createTaskDto: CreateTaskDto,
+    user: AuthTokenDto,
+  ): Promise<Task> {
+    const assignedToId = createTaskDto.assignedToId;
+    delete createTaskDto.assignedToId;
+
+    const task = new Task(createTaskDto);
+    const userAssigned = await this.userRepository.findOneOrFail(assignedToId);
+
+    let owner: User;
+
+    if (user.keyId === assignedToId) {
+      owner = userAssigned;
+    } else {
+      owner = await this.userRepository.findOneOrFail(user.keyId);
+    }
+
+    task.assignedTo = userAssigned;
+    task.createdBy = owner;
+
+    const entity = this.taskRepository.create(task);
     await this.taskRepository.persistAndFlush(entity);
     return entity;
   }

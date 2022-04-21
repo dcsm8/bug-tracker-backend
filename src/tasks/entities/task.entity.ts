@@ -55,4 +55,8 @@ export class Task {
 
   @Property({ onUpdate: () => new Date() })
   updatedAt: Date = new Date();
+
+  constructor(partial: Partial<Task>) {
+    Object.assign(this, partial);
+  }
 }
