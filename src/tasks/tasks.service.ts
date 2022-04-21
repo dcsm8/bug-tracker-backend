@@ -1,6 +1,6 @@
 import { wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
@@ -18,12 +18,12 @@ export class TasksService {
     return entity;
   }
 
-  findAll() {
+  async findAll(): Promise<Task[]> {
     return this.taskRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  async findOne(id: number): Promise<Task> {
+    return this.taskRepository.findOneOrFail(id);
   }
 
   async update(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
