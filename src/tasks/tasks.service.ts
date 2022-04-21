@@ -33,7 +33,9 @@ export class TasksService {
     return task;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  async remove(id: number): Promise<Task> {
+    const task = await this.taskRepository.findOneOrFail(id);
+    await this.taskRepository.removeAndFlush(task);
+    return task;
   }
 }
