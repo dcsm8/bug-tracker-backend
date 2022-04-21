@@ -27,14 +27,10 @@ export class TasksService {
   }
 
   async update(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
-    try {
-      const task = await this.taskRepository.findOneOrFail(id);
-      wrap(task).assign(updateTaskDto);
-      await this.taskRepository.flush();
-      return task;
-    } catch (error) {
-      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
-    }
+    const task = await this.taskRepository.findOneOrFail(id);
+    wrap(task).assign(updateTaskDto);
+    await this.taskRepository.flush();
+    return task;
   }
 
   remove(id: number) {
