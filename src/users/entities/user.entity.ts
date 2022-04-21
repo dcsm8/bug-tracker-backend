@@ -24,9 +24,11 @@ export class User {
   @Property()
   password: string;
 
+  @Exclude()
   @Property()
   createdAt: Date = new Date();
 
+  @Exclude()
   @Property({ onUpdate: () => new Date() })
   updatedAt: Date = new Date();
 }
