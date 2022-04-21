@@ -2,9 +2,11 @@ import {
   Entity,
   EntityRepositoryType,
   Enum,
+  ManyToOne,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
+import { User } from '../../users/entities/user.entity';
 import { CategoryType } from '../enums/category-type.enum';
 import { NotificationStatusType } from '../enums/notification-status-type.enum';
 import { PriorityType } from '../enums/priority-type.enum';
@@ -41,6 +43,12 @@ export class Task {
 
   @Property()
   release?: string;
+
+  @ManyToOne()
+  createdBy: User;
+
+  @ManyToOne()
+  assignedTo: User;
 
   @Property()
   createdAt: Date = new Date();
