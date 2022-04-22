@@ -9,6 +9,8 @@ import { setupValidationPipe } from './common/utils/setup-validation-pipe';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  app.enableCors();
+
   app.setGlobalPrefix('api');
   app.useGlobalPipes(setupValidationPipe());
 
