@@ -157,6 +157,22 @@
           ],
           "mappedType": "enum"
         },
+        "reproducible": {
+          "name": "reproducible",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "enumItems": [
+            "always",
+            "sometimes",
+            "rarely",
+            "unable",
+            "not_applicable"
+          ],
+          "mappedType": "enum"
+        },
         "short_description": {
           "name": "short_description",
           "type": "varchar(255)",

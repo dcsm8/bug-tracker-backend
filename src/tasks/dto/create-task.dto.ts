@@ -1,6 +1,7 @@
 import { IsEnum, IsNotEmpty } from 'class-validator';
 import { CategoryType } from '../enums/category-type.enum';
 import { NotificationStatusType } from '../enums/notification-status-type.enum';
+import { ReproducibleType } from '../enums/reproducible-type.enum';
 import { SeverityType } from '../enums/severity-type.enum';
 import { StatusType } from '../enums/status-type.enum';
 
@@ -23,6 +24,10 @@ export class CreateTaskDto {
   @IsNotEmpty()
   @IsEnum(CategoryType)
   readonly category: CategoryType;
+
+  @IsNotEmpty()
+  @IsEnum(ReproducibleType)
+  readonly reproducible: ReproducibleType;
 
   @IsNotEmpty()
   readonly shortDescription: string;
