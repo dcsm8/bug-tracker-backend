@@ -18,6 +18,14 @@ const config: Options = {
       connection: { ssl: { rejectUnauthorized: false } },
     }),
   },
+  seeder: {
+    path: 'dist/seeders',
+    pathTs: 'src/seeders',
+    defaultSeeder: 'DatabaseSeeder',
+    glob: '!(*.d).{js,ts}',
+    emit: 'ts',
+    fileName: (className: string) => className,
+  },
 };
 
 export default config;
