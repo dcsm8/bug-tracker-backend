@@ -107,6 +107,7 @@
           "primary": false,
           "nullable": false,
           "enumItems": [
+            "none",
             "low",
             "normal",
             "high",
@@ -122,13 +123,10 @@
           "primary": false,
           "nullable": false,
           "enumItems": [
-            "unassigned",
+            "backlog",
             "in_progress",
             "testing",
-            "complete",
-            "fixed",
-            "wont_fix",
-            "cant_reproduce"
+            "complete"
           ],
           "mappedType": "enum"
         },

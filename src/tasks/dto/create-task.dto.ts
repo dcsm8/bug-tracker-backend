@@ -1,7 +1,7 @@
 import { IsEnum, IsNotEmpty } from 'class-validator';
 import { CategoryType } from '../enums/category-type.enum';
 import { NotificationStatusType } from '../enums/notification-status-type.enum';
-import { PriorityType } from '../enums/priority-type.enum';
+import { SeverityType } from '../enums/severity-type.enum';
 import { StatusType } from '../enums/status-type.enum';
 
 export class CreateTaskDto {
@@ -9,8 +9,8 @@ export class CreateTaskDto {
   readonly title: string;
 
   @IsNotEmpty()
-  @IsEnum(PriorityType)
-  readonly priority: PriorityType;
+  @IsEnum(SeverityType)
+  readonly priority: SeverityType;
 
   @IsNotEmpty()
   @IsEnum(StatusType)

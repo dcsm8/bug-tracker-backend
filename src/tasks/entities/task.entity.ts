@@ -9,7 +9,7 @@ import {
 import { User } from '../../users/entities/user.entity';
 import { CategoryType } from '../enums/category-type.enum';
 import { NotificationStatusType } from '../enums/notification-status-type.enum';
-import { PriorityType } from '../enums/priority-type.enum';
+import { SeverityType } from '../enums/severity-type.enum';
 import { StatusType } from '../enums/status-type.enum';
 import { TaskRepository } from '../tasks.repository';
 
@@ -23,8 +23,8 @@ export class Task {
   @Property()
   title: string;
 
-  @Enum(() => PriorityType)
-  priority: PriorityType;
+  @Enum(() => SeverityType)
+  priority: SeverityType;
 
   @Enum(() => StatusType)
   status: StatusType;
