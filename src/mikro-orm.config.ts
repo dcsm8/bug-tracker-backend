@@ -14,9 +14,7 @@ const config: Options = {
   debug: true,
   logger: logger.log.bind(logger),
   driverOptions: {
-    ...(process.env.NODE_ENV === 'production' && {
-      connection: { ssl: { rejectUnauthorized: false } },
-    }),
+    connection: { ssl: { rejectUnauthorized: false } },
   },
   seeder: {
     path: 'dist/seeders',
