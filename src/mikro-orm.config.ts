@@ -8,6 +8,7 @@ const config: Options = {
   migrations: {
     path: 'dist/migrations',
     pathTs: 'src/migrations',
+    disableForeignKeys: false,
   },
   type: 'postgresql',
   clientUrl: process.env.DATABASE_URL,

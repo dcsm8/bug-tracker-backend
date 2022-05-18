@@ -40,10 +40,7 @@ export class Task {
   reproducible: ReproducibleType;
 
   @Property()
-  shortDescription: string;
-
-  @Property()
-  longDescription?: string;
+  description: string;
 
   @Property()
   release?: string;

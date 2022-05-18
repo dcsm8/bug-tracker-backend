@@ -25,13 +25,10 @@ export class CreateTaskDto {
   readonly reproducible: ReproducibleType;
 
   @IsNotEmpty()
-  readonly shortDescription: string;
+  readonly description: string;
 
   @IsNumber()
   assignedToId: number;
-
-  @IsOptional()
-  readonly longDescription?: string;
 
   @IsOptional()
   readonly release?: string;
