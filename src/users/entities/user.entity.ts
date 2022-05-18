@@ -4,6 +4,7 @@ import {
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
+import { ApiHideProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 import { UserRepository } from '../users.repository';
 
@@ -22,6 +23,7 @@ export class User {
 
   @Exclude()
   @Property()
+  @ApiHideProperty()
   password: string;
 
   @Exclude()
