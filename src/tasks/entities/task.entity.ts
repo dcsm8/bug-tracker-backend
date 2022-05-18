@@ -42,7 +42,7 @@ export class Task {
   @Property()
   description: string;
 
-  @Property()
+  @Property({ nullable: true })
   release?: string;
 
   @ManyToOne()
