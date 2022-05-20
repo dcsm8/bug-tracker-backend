@@ -39,8 +39,8 @@ export class Task {
   @Enum(() => ReproducibleType)
   reproducible: ReproducibleType;
 
-  @Property()
-  description: string;
+  @Property({ nullable: true })
+  description?: string;
 
   @Property({ nullable: true })
   release?: string;

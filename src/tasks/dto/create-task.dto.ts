@@ -24,11 +24,11 @@ export class CreateTaskDto {
   @IsEnum(ReproducibleType)
   readonly reproducible: ReproducibleType;
 
-  @IsNotEmpty()
-  readonly description: string;
-
   @IsPositive()
   assignedToId: number;
+
+  @IsOptional()
+  readonly description?: string;
 
   @IsOptional()
   readonly release?: string;
