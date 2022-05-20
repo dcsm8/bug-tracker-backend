@@ -7,7 +7,8 @@ import { User } from '../users/entities/user.entity';
 
 @Module({
   controllers: [TasksController],
-  providers: [TasksService],
+  exports: [TasksService],
   imports: [MikroOrmModule.forFeature({ entities: [Task, User] })],
+  providers: [TasksService],
 })
 export class TasksModule {}

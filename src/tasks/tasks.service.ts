@@ -12,7 +12,7 @@ import { TaskRepository } from './tasks.repository';
 @Injectable()
 export class TasksService {
   constructor(
-    @InjectRepository(Task) private readonly taskRepository: TaskRepository,
+    private readonly taskRepository: TaskRepository,
     @InjectRepository(User) private readonly userRepository: UserRepository,
   ) {}
 
@@ -26,6 +26,9 @@ export class TasksService {
     const task = new Task(createTaskDto);
     const userAssigned = await this.userRepository.findOneOrFail(assignedToId);
 
+    const position = await this.taskRepository.getBacklogLastPosition(
+      userAssigned,
+    );
     let owner: User;
 
     if (user.keyId === assignedToId) {
@@ -34,6 +37,7 @@ export class TasksService {
       owner = await this.userRepository.findOneOrFail(user.keyId);
     }
 
+    task.position = position;
     task.assignedTo = userAssigned;
     task.createdBy = owner;
 

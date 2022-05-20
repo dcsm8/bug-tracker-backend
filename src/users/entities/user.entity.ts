@@ -8,6 +8,7 @@ import { ApiHideProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 import { UserRepository } from '../users.repository';
 
+@Entity({ customRepository: () => UserRepository })
 @Entity()
 export class User {
   [EntityRepositoryType]?: UserRepository;

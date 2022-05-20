@@ -1,11 +1,4 @@
-import {
-  IsEnum,
-  IsInt,
-  IsNotEmpty,
-  IsOptional,
-  IsPositive,
-  Min,
-} from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsPositive } from 'class-validator';
 import { CategoryType } from '../enums/category-type.enum';
 import { NotificationStatusType } from '../enums/notification-status-type.enum';
 import { ReproducibleType } from '../enums/reproducible-type.enum';
@@ -13,10 +6,6 @@ import { SeverityType } from '../enums/severity-type.enum';
 import { StatusType } from '../enums/status-type.enum';
 
 export class CreateTaskDto {
-  @IsInt()
-  @Min(0)
-  readonly position: number;
-
   @IsNotEmpty()
   readonly title: string;
 
