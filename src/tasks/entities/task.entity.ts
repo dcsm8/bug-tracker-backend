@@ -22,6 +22,9 @@ export class Task {
   id: number;
 
   @Property()
+  position: number;
+
+  @Property()
   title: string;
 
   @Enum(() => SeverityType)
