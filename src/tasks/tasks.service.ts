@@ -9,6 +9,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
 import { TaskRepository } from './tasks.repository';
+import { StatusType } from './enums/status-type.enum';
 
 @Injectable()
 export class TasksService {
@@ -74,21 +75,25 @@ export class TasksService {
     for (const [index, value] of updatePositionDto.backlog.entries()) {
       const task = await this.taskRepository.findOneOrFail(value);
       task.position = index;
+      task.status = StatusType.BACKLOG;
     }
 
     for (const [index, value] of updatePositionDto.in_progress.entries()) {
       const task = await this.taskRepository.findOneOrFail(value);
       task.position = index;
+      task.status = StatusType.IN_PROGRESS;
     }
 
     for (const [index, value] of updatePositionDto.testing.entries()) {
       const task = await this.taskRepository.findOneOrFail(value);
       task.position = index;
+      task.status = StatusType.TESTING;
     }
 
     for (const [index, value] of updatePositionDto.complete.entries()) {
       const task = await this.taskRepository.findOneOrFail(value);
       task.position = index;
+      task.status = StatusType.COMPLETE;
     }
 
     await this.taskRepository.flush();
