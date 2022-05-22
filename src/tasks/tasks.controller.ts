@@ -1,3 +1,4 @@
+import { UpdatePositionDto } from './dto/update-positions.dto';
 import {
   Controller,
   Get,
@@ -46,6 +47,11 @@ export class TasksController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
     return this.tasksService.update(+id, updateTaskDto);
+  }
+
+  @Patch('positions/update')
+  updatePositions(@Body() updatePositionDto: UpdatePositionDto) {
+    return this.tasksService.updatePositions(updatePositionDto);
   }
 
   @Delete(':id')

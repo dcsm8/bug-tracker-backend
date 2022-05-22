@@ -1,3 +1,4 @@
+import { UpdatePositionDto } from './dto/update-positions.dto';
 import { wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
@@ -67,5 +68,29 @@ export class TasksService {
     const task = await this.taskRepository.findOneOrFail(id);
     await this.taskRepository.removeAndFlush(task);
     return task;
+  }
+
+  async updatePositions(updatePositionDto: UpdatePositionDto): Promise<any> {
+    for (const [index, value] of updatePositionDto.backlog.entries()) {
+      const task = await this.taskRepository.findOneOrFail(value);
+      task.position = index;
+    }
+
+    for (const [index, value] of updatePositionDto.in_progress.entries()) {
+      const task = await this.taskRepository.findOneOrFail(value);
+      task.position = index;
+    }
+
+    for (const [index, value] of updatePositionDto.testing.entries()) {
+      const task = await this.taskRepository.findOneOrFail(value);
+      task.position = index;
+    }
+
+    for (const [index, value] of updatePositionDto.complete.entries()) {
+      const task = await this.taskRepository.findOneOrFail(value);
+      task.position = index;
+    }
+
+    await this.taskRepository.flush();
   }
 }
