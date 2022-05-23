@@ -1,3 +1,4 @@
+import { CreateTaskPreview } from './task.interfaces';
 import { UpdatePositionDto } from './dto/update-positions.dto';
 import { wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
@@ -23,9 +24,10 @@ export class TasksService {
     user: AuthTokenDto,
   ): Promise<Task> {
     const assignedToId = createTaskDto.assignedToId;
-    delete createTaskDto.assignedToId;
 
-    const task = new Task(createTaskDto);
+    const createTaskTmp: CreateTaskPreview = createTaskDto;
+    const task = new Task(createTaskTmp);
+
     const userAssigned = await this.userRepository.findOneOrFail(assignedToId);
 
     const position = await this.taskRepository.getBacklogLastPosition(
