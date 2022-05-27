@@ -27,7 +27,7 @@ export class CreateTaskDto {
   readonly reproducible: ReproducibleType;
 
   @IsNotEmpty()
-  assignedTo: User;
+  readonly assignedTo: User;
 
   @IsOptional()
   readonly area?: Area;
