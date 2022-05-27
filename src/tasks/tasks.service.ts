@@ -1,4 +1,3 @@
-import { CreateTaskPreview } from './task.interfaces';
 import { UpdatePositionDto } from './dto/update-positions.dto';
 import { wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
