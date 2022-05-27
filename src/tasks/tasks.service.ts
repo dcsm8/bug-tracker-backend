@@ -11,42 +11,43 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
 import { TaskRepository } from './tasks.repository';
 import { StatusType } from './enums/status-type.enum';
+import { AreasRepository } from '../areas/areas.repository';
+import { Area } from '../areas/entities/area.entity';
 
 @Injectable()
 export class TasksService {
   constructor(
     private readonly taskRepository: TaskRepository,
     @InjectRepository(User) private readonly userRepository: UserRepository,
+    @InjectRepository(Area) private readonly areasRepository: AreasRepository,
   ) {}
 
   async create(
     createTaskDto: CreateTaskDto,
     user: AuthTokenDto,
   ): Promise<Task> {
-    const assignedToId = createTaskDto.assignedToId;
+    const task = new Task(createTaskDto);
 
-    const createTaskTmp: CreateTaskPreview = createTaskDto;
-    const task = new Task(createTaskTmp);
+    if (task.area.id) {
+      task.area = await this.areasRepository.findOneOrFail(task.area.id);
+    }
 
-    const userAssigned = await this.userRepository.findOneOrFail(assignedToId);
+    const userAssigned = await this.userRepository.findOneOrFail(
+      task.assignedTo.id,
+    );
 
     const position = await this.taskRepository.getBacklogLastPosition(
       userAssigned,
     );
-    let owner: User;
 
-    if (user.keyId === assignedToId) {
-      owner = userAssigned;
-    } else {
-      owner = await this.userRepository.findOneOrFail(user.keyId);
-    }
+    task.createdBy = await this.userRepository.findOneOrFail(user.keyId);
 
     task.position = position;
     task.assignedTo = userAssigned;
-    task.createdBy = owner;
 
     const entity = this.taskRepository.create(task);
     await this.taskRepository.persistAndFlush(entity);
+
     return entity;
   }
 

@@ -7,6 +7,7 @@ import {
   Property,
   types,
 } from '@mikro-orm/core';
+import { IsPositive } from 'class-validator';
 import { Area } from '../../areas/entities/area.entity';
 import { User } from '../../users/entities/user.entity';
 import { CategoryType } from '../enums/category-type.enum';
@@ -21,6 +22,7 @@ import { TaskRepository } from '../tasks.repository';
 export class Task {
   [EntityRepositoryType]?: TaskRepository;
 
+  @IsPositive()
   @PrimaryKey()
   id: number;
 

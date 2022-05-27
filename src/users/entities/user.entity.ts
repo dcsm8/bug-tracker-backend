@@ -6,6 +6,7 @@ import {
 } from '@mikro-orm/core';
 import { ApiHideProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
+import { IsPositive } from 'class-validator';
 import { UserRepository } from '../users.repository';
 
 @Entity({ customRepository: () => UserRepository })
@@ -13,6 +14,7 @@ import { UserRepository } from '../users.repository';
 export class User {
   [EntityRepositoryType]?: UserRepository;
 
+  @IsPositive()
   @PrimaryKey()
   id: number;
 
