@@ -1,6 +1,4 @@
 import { IsEnum, IsNotEmpty, IsOptional, IsPositive } from 'class-validator';
-import { Area } from '../../areas/entities/area.entity';
-import { User } from '../../users/entities/user.entity';
 import { CategoryType } from '../enums/category-type.enum';
 import { NotificationStatusType } from '../enums/notification-status-type.enum';
 import { ReproducibleType } from '../enums/reproducible-type.enum';
@@ -27,10 +25,12 @@ export class CreateTaskDto {
   readonly reproducible: ReproducibleType;
 
   @IsNotEmpty()
-  readonly assignedTo: User;
+  @IsPositive()
+  readonly assignedToId: number;
 
   @IsOptional()
-  readonly area?: Area;
+  @IsPositive()
+  readonly areaId?: number;
 
   @IsOptional()
   readonly description?: string;

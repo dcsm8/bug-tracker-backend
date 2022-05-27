@@ -26,17 +26,14 @@ export class TasksService {
     user: AuthTokenDto,
   ): Promise<Task> {
     const task = new Task(createTaskDto);
+    const { assignedToId, areaId } = createTaskDto;
 
-    if (task.area && task.area.id) {
-      task.area = await this.areasRepository.findOneOrFail(task.area.id);
+    if (areaId) {
+      task.area = await this.areasRepository.findOneOrFail(areaId);
     }
 
-    const userAssigned = await this.userRepository.findOneOrFail(
-      task.assignedTo.id,
-    );
-
+    const userAssigned = await this.userRepository.findOneOrFail(assignedToId);
     task.createdBy = await this.userRepository.findOneOrFail(user.keyId);
-
     const position = await this.taskRepository.getBacklogLastPosition(
       userAssigned,
     );
