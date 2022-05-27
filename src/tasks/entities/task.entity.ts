@@ -5,6 +5,8 @@ import {
   ManyToOne,
   PrimaryKey,
   Property,
+  TextType,
+  types,
 } from '@mikro-orm/core';
 import { User } from '../../users/entities/user.entity';
 import { CategoryType } from '../enums/category-type.enum';
@@ -43,7 +45,7 @@ export class Task {
   @Enum(() => ReproducibleType)
   reproducible: ReproducibleType;
 
-  @Property({ nullable: true })
+  @Property({ nullable: true, type: types.text })
   description?: string;
 
   @Property({ nullable: true })
