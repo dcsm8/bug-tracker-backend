@@ -5,9 +5,9 @@ import {
   ManyToOne,
   PrimaryKey,
   Property,
-  TextType,
   types,
 } from '@mikro-orm/core';
+import { Area } from '../../areas/entities/area.entity';
 import { User } from '../../users/entities/user.entity';
 import { CategoryType } from '../enums/category-type.enum';
 import { NotificationStatusType } from '../enums/notification-status-type.enum';
@@ -50,6 +50,9 @@ export class Task {
 
   @Property({ nullable: true })
   release?: string;
+
+  @ManyToOne({ nullable: true })
+  area?: Area;
 
   @ManyToOne()
   createdBy: User;
