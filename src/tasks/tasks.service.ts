@@ -27,7 +27,7 @@ export class TasksService {
   ): Promise<Task> {
     const task = new Task(createTaskDto);
 
-    if (task.area.id) {
+    if (task.area && task.area.id) {
       task.area = await this.areasRepository.findOneOrFail(task.area.id);
     }
 
@@ -35,11 +35,11 @@ export class TasksService {
       task.assignedTo.id,
     );
 
+    task.createdBy = await this.userRepository.findOneOrFail(user.keyId);
+
     const position = await this.taskRepository.getBacklogLastPosition(
       userAssigned,
     );
-
-    task.createdBy = await this.userRepository.findOneOrFail(user.keyId);
 
     task.position = position;
     task.assignedTo = userAssigned;
@@ -52,7 +52,7 @@ export class TasksService {
 
   async findAll(): Promise<Task[]> {
     return this.taskRepository.findAll({
-      populate: ['createdBy', 'assignedTo'],
+      populate: ['createdBy', 'assignedTo', 'area'],
     });
   }
 
