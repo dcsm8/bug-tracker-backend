@@ -20,8 +20,8 @@ export class Area {
   @Property()
   name: string;
 
-  @Property()
-  color: string;
+  @Property({ nullable: true })
+  color?: string;
 
   @Exclude()
   @Property()
