@@ -10,4 +10,15 @@ export class TaskRepository extends EntityRepository<Task> {
       .count()
       .where({ status: StatusType.BACKLOG, assignedTo: user.id });
   }
+
+  public async getTasksWhereId(ids: number[]): Promise<Task[]> {
+    const listTasks = await this.em.qb(Task).select('*').where({ id: ids });
+    return this.sortBy(listTasks, ids);
+  }
+
+  public sortBy(listTasks: Task[], sortList: number[]): Task[] {
+    return listTasks.sort((a, b) => {
+      return sortList.indexOf(a.id) - sortList.indexOf(b.id);
+    });
+  }
 }

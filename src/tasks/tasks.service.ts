@@ -77,28 +77,26 @@ export class TasksService {
   }
 
   async updatePositions(updatePositionDto: UpdatePositionDto): Promise<any> {
-    for (const [index, value] of updatePositionDto.backlog.entries()) {
-      const task = await this.taskRepository.findOneOrFail(value);
-      task.position = index;
-      task.status = StatusType.BACKLOG;
-    }
+    const { sourceColumn, destinationColumn } = updatePositionDto;
 
-    for (const [index, value] of updatePositionDto.in_progress.entries()) {
-      const task = await this.taskRepository.findOneOrFail(value);
-      task.position = index;
-      task.status = StatusType.IN_PROGRESS;
-    }
+    const sourceColumnTasks = await this.taskRepository.getTasksWhereId(
+      updatePositionDto[sourceColumn],
+    );
 
-    for (const [index, value] of updatePositionDto.testing.entries()) {
-      const task = await this.taskRepository.findOneOrFail(value);
+    sourceColumnTasks.forEach((task, index) => {
       task.position = index;
-      task.status = StatusType.TESTING;
-    }
+      task.status = StatusType[sourceColumn.toUpperCase()];
+    });
 
-    for (const [index, value] of updatePositionDto.complete.entries()) {
-      const task = await this.taskRepository.findOneOrFail(value);
-      task.position = index;
-      task.status = StatusType.COMPLETE;
+    if (sourceColumn !== destinationColumn) {
+      const destinationColumnTasks = await this.taskRepository.getTasksWhereId(
+        updatePositionDto[destinationColumn],
+      );
+
+      destinationColumnTasks.forEach((task, index) => {
+        task.position = index;
+        task.status = StatusType[destinationColumn.toUpperCase()];
+      });
     }
 
     await this.taskRepository.flush();

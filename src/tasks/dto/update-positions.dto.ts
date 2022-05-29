@@ -1,4 +1,6 @@
+import { Enum } from '@mikro-orm/core';
 import { IsPositive } from 'class-validator';
+import { StatusType } from '../enums/status-type.enum';
 
 export class UpdatePositionDto {
   @IsPositive({ each: true })
@@ -12,4 +14,10 @@ export class UpdatePositionDto {
 
   @IsPositive({ each: true })
   complete: number[];
+
+  @Enum(() => StatusType)
+  sourceColumn: StatusType;
+
+  @Enum(() => StatusType)
+  destinationColumn: StatusType;
 }
