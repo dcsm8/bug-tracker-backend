@@ -1,32 +1,27 @@
 import { IsEnum, IsNotEmpty, IsOptional, IsPositive } from 'class-validator';
 import { CategoryType } from '../enums/category-type.enum';
-import { NotificationStatusType } from '../enums/notification-status-type.enum';
 import { ReproducibleType } from '../enums/reproducible-type.enum';
 import { SeverityType } from '../enums/severity-type.enum';
-import { StatusType } from '../enums/status-type.enum';
 
 export class CreateTaskDto {
   @IsNotEmpty()
   readonly title: string;
 
+  @IsOptional()
   @IsEnum(SeverityType)
-  readonly priority: SeverityType;
+  readonly priority?: SeverityType;
 
-  @IsEnum(StatusType)
-  readonly status: StatusType;
-
-  @IsEnum(NotificationStatusType)
-  readonly notificationStatus: NotificationStatusType;
-
+  @IsOptional()
   @IsEnum(CategoryType)
-  readonly category: CategoryType;
+  readonly category?: CategoryType;
 
+  @IsOptional()
   @IsEnum(ReproducibleType)
-  readonly reproducible: ReproducibleType;
+  readonly reproducible?: ReproducibleType;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsPositive()
-  readonly assignedToId: number;
+  readonly assignedToId?: number;
 
   @IsOptional()
   @IsPositive()
@@ -34,7 +29,4 @@ export class CreateTaskDto {
 
   @IsOptional()
   readonly description?: string;
-
-  @IsOptional()
-  readonly release?: string;
 }

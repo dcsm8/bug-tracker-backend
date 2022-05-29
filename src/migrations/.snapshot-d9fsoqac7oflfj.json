@@ -174,21 +174,14 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "priority": {
-          "name": "priority",
-          "type": "text",
+        "created_by_id": {
+          "name": "created_by_id",
+          "type": "int",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "enumItems": [
-            "none",
-            "low",
-            "normal",
-            "high",
-            "critical"
-          ],
-          "mappedType": "enum"
+          "mappedType": "integer"
         },
         "status": {
           "name": "status",
@@ -205,16 +198,19 @@
           ],
           "mappedType": "enum"
         },
-        "notification_status": {
-          "name": "notification_status",
+        "priority": {
+          "name": "priority",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "enumItems": [
-            "notified",
-            "not_notified"
+            "none",
+            "low",
+            "normal",
+            "high",
+            "critical"
           ],
           "mappedType": "enum"
         },
@@ -224,7 +220,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "enumItems": [
             "issue",
             "feature",
@@ -238,7 +234,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "enumItems": [
             "always",
             "sometimes",
@@ -257,15 +253,6 @@
           "nullable": true,
           "mappedType": "text"
         },
-        "release": {
-          "name": "release",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": true,
-          "mappedType": "string"
-        },
         "area_id": {
           "name": "area_id",
           "type": "int",
@@ -275,22 +262,13 @@
           "nullable": true,
           "mappedType": "integer"
         },
-        "created_by_id": {
-          "name": "created_by_id",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
-        },
         "assigned_to_id": {
           "name": "assigned_to_id",
           "type": "int",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "integer"
         },
         "created_at": {
@@ -329,6 +307,18 @@
       ],
       "checks": [],
       "foreignKeys": {
+        "task_created_by_id_foreign": {
+          "constraintName": "task_created_by_id_foreign",
+          "columnNames": [
+            "created_by_id"
+          ],
+          "localTableName": "public.task",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.user",
+          "updateRule": "cascade"
+        },
         "task_area_id_foreign": {
           "constraintName": "task_area_id_foreign",
           "columnNames": [
@@ -342,18 +332,6 @@
           "deleteRule": "set null",
           "updateRule": "cascade"
         },
-        "task_created_by_id_foreign": {
-          "constraintName": "task_created_by_id_foreign",
-          "columnNames": [
-            "created_by_id"
-          ],
-          "localTableName": "public.task",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.user",
-          "updateRule": "cascade"
-        },
         "task_assigned_to_id_foreign": {
           "constraintName": "task_assigned_to_id_foreign",
           "columnNames": [
@@ -364,6 +342,7 @@
             "id"
           ],
           "referencedTableName": "public.user",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         }
       }
