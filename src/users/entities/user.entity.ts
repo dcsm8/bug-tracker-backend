@@ -22,6 +22,9 @@ export class User {
   username: string;
 
   @Property()
+  fullName: string;
+
+  @Property()
   email: string;
 
   @Exclude()

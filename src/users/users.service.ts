@@ -15,7 +15,7 @@ export class UsersService {
     return 'This action adds a new user';
   }
 
-  findAll() {
+  findAll(): Promise<User[]> {
     return this.userRepository.findAll();
   }
 
