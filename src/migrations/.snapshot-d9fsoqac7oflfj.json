@@ -206,11 +206,9 @@
           "primary": false,
           "nullable": true,
           "enumItems": [
-            "none",
             "low",
-            "normal",
-            "high",
-            "critical"
+            "mid",
+            "high"
           ],
           "mappedType": "enum"
         },

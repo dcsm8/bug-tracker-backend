@@ -1,7 +1,5 @@
 export enum SeverityType {
-  NONE = 'none',
   LOW = 'low',
-  NORMAL = 'normal',
+  MID = 'mid',
   HIGH = 'high',
-  CRITICAL = 'critical',
 }
