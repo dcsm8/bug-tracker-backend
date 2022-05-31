@@ -1,10 +1,11 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsHexColor, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateAreaDto {
   @IsNotEmpty()
+  @IsString()
   readonly name: string;
 
   @IsOptional()
-  @IsNotEmpty()
+  @IsHexColor()
   readonly color?: string;
 }
