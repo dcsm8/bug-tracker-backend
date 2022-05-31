@@ -5,7 +5,6 @@ import {
   Property,
 } from '@mikro-orm/core';
 import { Exclude } from 'class-transformer';
-import { IsPositive } from 'class-validator';
 import { AreasRepository } from '../areas.repository';
 
 @Entity({ customRepository: () => AreasRepository })
@@ -13,7 +12,6 @@ import { AreasRepository } from '../areas.repository';
 export class Area {
   [EntityRepositoryType]?: AreasRepository;
 
-  @IsPositive()
   @PrimaryKey()
   id: number;
 
