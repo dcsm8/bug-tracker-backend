@@ -19,6 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     token.keyId = payload.keyId;
     token.username = payload.username;
     token.email = payload.email;
+    token.fullName = payload.fullName;
 
     return token;
   }
