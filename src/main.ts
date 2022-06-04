@@ -1,5 +1,4 @@
-import { ClassSerializerInterceptor } from '@nestjs/common';
-import { HttpAdapterHost, NestFactory, Reflector } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { ErrorExceptionMapping } from './common/filters/error-mapping.filter';
@@ -13,9 +12,6 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
   app.useGlobalPipes(setupValidationPipe());
-
-  const reflector = app.get(Reflector);
-  app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
 
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new ErrorExceptionMapping(httpAdapter));
