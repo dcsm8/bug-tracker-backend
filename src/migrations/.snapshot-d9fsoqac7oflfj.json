@@ -108,8 +108,8 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "description": {
-          "name": "description",
+        "text": {
+          "name": "text",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,

@@ -20,7 +20,7 @@ export class Comment {
   user: User;
 
   @Property({ type: types.text })
-  description: string;
+  text: string;
 
   @Property()
   createdAt: Date = new Date();
