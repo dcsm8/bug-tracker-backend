@@ -5,7 +5,6 @@ import {
   Property,
 } from '@mikro-orm/core';
 import { ApiHideProperty } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
 import { UserRepository } from '../users.repository';
 
 @Entity({ customRepository: () => UserRepository })
@@ -24,16 +23,13 @@ export class User {
   @Property()
   email: string;
 
-  @Exclude()
-  @Property()
+  @Property({ hidden: true })
   @ApiHideProperty()
   password: string;
 
-  @Exclude()
   @Property()
   createdAt: Date = new Date();
 
-  @Exclude()
   @Property({ onUpdate: () => new Date() })
   updatedAt: Date = new Date();
 }
