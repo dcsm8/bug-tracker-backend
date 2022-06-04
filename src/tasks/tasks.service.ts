@@ -55,7 +55,7 @@ export class TasksService {
 
   async findAll(): Promise<Task[]> {
     return this.taskRepository.findAll({
-      populate: ['createdBy', 'assignedTo', 'area'],
+      populate: ['createdBy', 'assignedTo', 'area', 'comments'],
     });
   }
 
