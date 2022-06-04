@@ -4,7 +4,6 @@ import {
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
-import { Exclude } from 'class-transformer';
 import { AreasRepository } from '../areas.repository';
 
 @Entity({ customRepository: () => AreasRepository })
@@ -20,11 +19,9 @@ export class Area {
   @Property({ nullable: true })
   color?: string;
 
-  @Exclude()
   @Property()
   createdAt: Date = new Date();
 
-  @Exclude()
   @Property({ onUpdate: () => new Date() })
   updatedAt: Date = new Date();
 }
