@@ -8,6 +8,7 @@ import {
   EntityRepositoryType,
 } from '@mikro-orm/core';
 import { User } from '../../users/entities/user.entity';
+import { Task } from '../../tasks/entities/task.entity';
 
 @Entity({ customRepository: () => CommentsRepository })
 export class Comment {
@@ -18,6 +19,9 @@ export class Comment {
 
   @ManyToOne()
   user: User;
+
+  @ManyToOne()
+  task: Task;
 
   @Property({ type: types.text })
   text: string;

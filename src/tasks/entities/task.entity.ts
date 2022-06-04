@@ -1,13 +1,16 @@
 import {
+  Collection,
   Entity,
   EntityRepositoryType,
   Enum,
   ManyToOne,
+  OneToMany,
   PrimaryKey,
   Property,
   types,
 } from '@mikro-orm/core';
 import { Area } from '../../areas/entities/area.entity';
+import { Comment } from '../../comments/entities/comment.entity';
 import { User } from '../../users/entities/user.entity';
 import { CategoryType } from '../enums/category-type.enum';
 import { ReproducibleType } from '../enums/reproducible-type.enum';
@@ -30,6 +33,9 @@ export class Task {
 
   @ManyToOne()
   createdBy: User;
+
+  @OneToMany(() => Comment, (comment) => comment.task)
+  comments = new Collection<Comment>(this);
 
   @Enum(() => StatusType)
   status: StatusType;
