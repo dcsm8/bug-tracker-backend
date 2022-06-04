@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { TasksModule } from './tasks/tasks.module';
 import { AreasModule } from './areas/areas.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AreasModule } from './areas/areas.module';
     ConfigModule.forRoot(),
     TasksModule,
     AreasModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [],
