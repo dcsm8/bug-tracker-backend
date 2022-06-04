@@ -1,3 +1,6 @@
+import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
+import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
+import { LoadStrategy } from '@mikro-orm/core';
 import { Logger } from '@nestjs/common';
 import { Options } from '@mikro-orm/core';
 
@@ -25,6 +28,9 @@ const config: Options = {
     emit: 'ts',
     fileName: (className: string) => className,
   },
+  loadStrategy: LoadStrategy.JOINED,
+  metadataProvider: TsMorphMetadataProvider,
+  highlighter: new SqlHighlighter(),
 };
 
 export default config;
