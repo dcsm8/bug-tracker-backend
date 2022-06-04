@@ -16,7 +16,6 @@ import { StatusType } from '../enums/status-type.enum';
 import { TaskRepository } from '../tasks.repository';
 
 @Entity({ customRepository: () => TaskRepository })
-@Entity()
 export class Task {
   [EntityRepositoryType]?: TaskRepository;
 

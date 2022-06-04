@@ -8,7 +8,6 @@ import { Exclude } from 'class-transformer';
 import { AreasRepository } from '../areas.repository';
 
 @Entity({ customRepository: () => AreasRepository })
-@Entity()
 export class Area {
   [EntityRepositoryType]?: AreasRepository;
 
