@@ -450,6 +450,7 @@
             "id"
           ],
           "referencedTableName": "public.task",
+          "deleteRule": "cascade",
           "updateRule": "cascade"
         }
       }

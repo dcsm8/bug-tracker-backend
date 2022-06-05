@@ -20,7 +20,7 @@ export class Comment {
   @ManyToOne()
   user: User;
 
-  @ManyToOne()
+  @ManyToOne({ onDelete: 'cascade' })
   task: Task;
 
   @Property({ type: types.text })
