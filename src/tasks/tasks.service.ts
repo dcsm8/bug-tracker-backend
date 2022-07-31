@@ -55,12 +55,14 @@ export class TasksService {
 
   async findAll(): Promise<Task[]> {
     return this.taskRepository.findAll({
-      populate: ['createdBy', 'assignedTo', 'area', 'comments'],
+      populate: ['createdBy', 'assignedTo', 'area'],
     });
   }
 
   async findOne(id: number): Promise<Task> {
-    return this.taskRepository.findOneOrFail(id);
+    return this.taskRepository.findOneOrFail(id, {
+      populate: ['createdBy', 'assignedTo', 'area', 'comments'],
+    });
   }
 
   async update(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
